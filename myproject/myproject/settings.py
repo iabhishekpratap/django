@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app1',  # app1 for the learn views and urls
     'template_engine', # app for practicing template engine
+    'models_migrations',  # app for models migrations
 ]
 
 MIDDLEWARE = [

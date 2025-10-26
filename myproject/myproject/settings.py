@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app1',  # app1 for the learn views and urls
-    'template_engine', # app for practicing template engine
-    'models_migrations',  # app for models migrations
+    'students',  # app for student management / learn crud operations
+    'vege',  # app for recipe management
+
 ]
 
 MIDDLEWARE = [

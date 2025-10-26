@@ -11,29 +11,50 @@
             padding: 0;
             height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             font-family: Arial, sans-serif;
             background-color: white;
-            /* White background */
         }
 
         .django-text {
-            font-size: 15vw;
+            font-size: 12vw;
             font-weight: bold;
             text-align: center;
-            height: 70vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             color: #092E20;
-            /* Official Django dark green text */
+            margin-bottom: 20px;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            font-size: 1.2rem;
+            color: #092E20;
+            padding: 10px 20px;
+            border: 2px solid #092E20;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #092E20;
+            color: white;
         }
     </style>
 </head>
 
 <body>
     <div class="django-text">Django</div>
+
+    <nav>
+        <a href="{% url 'students' %}">Student List</a>
+        <a href="{% url 'recipe_list' %}">Recipe List</a>
+    </nav>
 </body>
 
 </html>

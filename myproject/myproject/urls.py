@@ -20,7 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app1.urls')),  # Include the URLs from app1
-    path('students/', include('students.urls')),  # Include the URLs from the students app
-    path('vege/', include('vege.urls')),  # Include the URLs from the vege app
 ]
 

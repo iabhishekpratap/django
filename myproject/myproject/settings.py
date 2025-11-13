@@ -38,8 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app1',  # app1 for the learn views and urls
-    'students',  # app for student management / learn crud operations
-    'vege',  # app for recipe management
 
 ]
 

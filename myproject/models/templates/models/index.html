@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .add-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .add-btn:hover {
+            background-color: #3e8e41;
+            transform: translateY(-3px);
+        }
+        
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .delete-btn:hover {
+            background-color: #d32f2f;
+            transform: translateY(-3px);
+        }
+        
+        .delete-btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .student-directory {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .student-list {
+            list-style: none;
+        }
+        
+        .student-item {
+            padding: 20px 30px;
+            border-bottom: 1px solid #eaeaea;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .student-item:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .student-item.selected {
+            background-color: #e3f2fd;
+            border-left: 5px solid #2196F3;
+        }
+        
+        .student-item:last-child {
+            border-bottom: none;
+        }
+        
+        .student-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2c3e50;
+            flex: 1;
+        }
+        
+        .student-info {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            text-align: right;
+            flex: 1;
+        }
+        
+        .student-id {
+            font-weight: 600;
+            color: #3498db;
+        }
+        
+        .student-major {
+            font-style: italic;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 500px;
+        }
+        
+        .modal h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 25px;
+        }
+        
+        .cancel-btn {
+            background-color: #9e9e9e;
+            color: white;
+        }
+        
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .error-message {
+            color: #f44336;
+            text-align: center;
+            margin-top: 15px;
+            font-weight: 600;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 80%;
+            }
+            
+            .student-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .student-name {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+            
+            .student-info {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Student Management System</h1>
+        </header>
+        
+        <div class="controls">
+            <button class="btn add-btn" id="addBtn">Add Student</button>
+            <button class="btn delete-btn" id="deleteBtn" disabled>Delete Student</button>
+        </div>
+        
+        <div class="error-message" id="errorMessage">
+            Please select a student to delete!
+        </div>
+        
+        <div class="student-directory">
+            <ul class="student-list" id="studentList">
+                <!-- Student data would be dynamically loaded here -->
+                <li class="student-item" data-id="S1001">
+                    <div class="student-name">Emily Johnson</div>
+                    <div class="student-info">
+                        <span class="student-id">ID: S1001</span> | 
+                        <span class="student-major">Computer Science</span>
+                    </div>
+                </li>
+                <li class="student-item" data-id="S1002">
+                    <div class="student-name">Michael Chen</div>
+                    <div class="student-info">
+                        <span class="student-id">ID: S1002</span> | 
+                        <span class="student-major">Business Administration</span>
+                    </div>
+                </li>
+                <li class="student-item" data-id="S1003">
+                    <div class="student-name">Sarah Williams</div>
+                    <div class="student-info">
+                        <span class="student-id">ID: S1003</span> | 
+                        <span class="student-major">Psychology</span>
+                    </div>
+                </li>
+                <li class="student-item" data-id="S1004">
+                    <div class="student-name">David Rodriguez</div>
+                    <div class="student-info">
+                        <span class="student-id">ID: S1004</span> | 
+                        <span class="student-major">Mechanical Engineering</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Add Student Modal -->
+        <div class="modal" id="addStudentModal">
+            <div class="modal-content">
+                <h2>Add New Student</h2>
+                <form id="studentForm">
+                    <div class="form-group">
+                        <label for="studentName">Full Name</label>
+                        <input type="text" id="studentName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentId">Student ID</label>
+                        <input type="text" id="studentId" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentMajor">Major</label>
+                        <select id="studentMajor" required>
+                            <option value="">Select a major</option>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Business Administration">Business Administration</option>
+                            <option value="Psychology">Psychology</option>
+                            <option value="Mechanical Engineering">Mechanical Engineering</option>
+                            <option value="Biology">Biology</option>
+                            <option value="Economics">Economics</option>
+                            <option value="Graphic Design">Graphic Design</option>
+                            <option value="Political Science">Political Science</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn cancel-btn" id="cancelBtn">Cancel</button>
+                        <button type="submit" class="btn submit-btn">Add Student</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const addBtn = document.getElementById('addBtn');
+            const deleteBtn = document.getElementById('deleteBtn');
+            const errorMessage = document.getElementById('errorMessage');
+            const addStudentModal = document.getElementById('addStudentModal');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const studentForm = document.getElementById('studentForm');
+            const studentList = document.getElementById('studentList');
+            
+            let selectedStudent = null;
+            
+            // Add button click handler
+            addBtn.addEventListener('click', function() {
+                addStudentModal.style.display = 'flex';
+            });
+            
+            // Cancel button click handler
+            cancelBtn.addEventListener('click', function() {
+                addStudentModal.style.display = 'none';
+                studentForm.reset();
+            });
+            
+            // Student form submission
+            studentForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('studentName').value;
+                const id = document.getElementById('studentId').value;
+                const major = document.getElementById('studentMajor').value;
+                
+                // Create new student element
+                const newStudent = document.createElement('li');
+                newStudent.className = 'student-item';
+                newStudent.setAttribute('data-id', id);
+                newStudent.innerHTML = `
+                    <div class="student-name">${name}</div>
+                    <div class="student-info">
+                        <span class="student-id">ID: ${id}</span> | 
+                        <span class="student-major">${major}</span>
+                    </div>
+                `;
+                
+                // Add click event to new student
+                newStudent.addEventListener('click', selectStudent);
+                
+                // Add to the list
+                studentList.appendChild(newStudent);
+                
+                // Close modal and reset form
+                addStudentModal.style.display = 'none';
+                studentForm.reset();
+                
+                // Show success message
+                alert(`Student ${name} added successfully!`);
+            });
+            
+            // Delete button click handler
+            deleteBtn.addEventListener('click', function() {
+                if (!selectedStudent) {
+                    errorMessage.style.display = 'block';
+                    setTimeout(() => {
+                        errorMessage.style.display = 'none';
+                    }, 3000);
+                    return;
+                }
+                
+                if (confirm(`Are you sure you want to delete ${selectedStudent.querySelector('.student-name').textContent}?`)) {
+                    selectedStudent.remove();
+                    selectedStudent = null;
+                    deleteBtn.disabled = true;
+                }
+            });
+            
+            // Select student function
+            function selectStudent() {
+                // Remove selected class from all students
+                document.querySelectorAll('.student-item').forEach(item => {
+                    item.classList.remove('selected');
+                });
+                
+                // Add selected class to clicked student
+                this.classList.add('selected');
+                selectedStudent = this;
+                deleteBtn.disabled = false;
+            }
+            
+            // Add click events to existing students
+            document.querySelectorAll('.student-item').forEach(item => {
+                item.addEventListener('click', selectStudent);
+            });
+        });
+    </script>
+</body>
+</html>

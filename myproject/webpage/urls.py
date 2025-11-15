@@ -4,7 +4,7 @@ from django.urls import path
 from . import views
 # views = file that has page functions
 
-
+app_name = 'webpage'
 
 urlpatterns = [
     path('', views.home, name='home'),

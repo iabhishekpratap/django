@@ -23,5 +23,6 @@ urlpatterns = [
     path('', include('app1.urls')),  # Include the URLs from app1
     path('html_temp/', include('html_temp.urls')),  # Include the URLs from html_temp app
     path("webpage/", include("webpage.urls")), # include url from the webpage app
+
 ]
 

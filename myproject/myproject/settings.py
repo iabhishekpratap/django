@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'app1',  # app1 for the learn views and urls
     'html_temp', # html_temp for template examples
     "webpage",
+    "models",
 ]
 
 MIDDLEWARE = [

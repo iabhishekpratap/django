@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Item</title>
+</head>
+<body>
+
+<h2>Edit Item</h2>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <label>Name:</label><br>
+    <input type="text" name="name" value="{{ recipe.name }}"><br><br>
+
+    <label>Description:</label><br>
+    <textarea name="description">{{ recipe.description }}</textarea><br><br>
+
+    <button type="submit">Update</button>
+</form>
+
+<a href="{% url 'crud:recipe_list' %}">Back</a>
+
+</body>
+</html>

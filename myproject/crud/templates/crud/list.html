@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Item List</title>
+</head>
+<body>
+
+<h2>All Items</h2>
+
+<a href="{% url 'crud:recipe_create' %}">Add New Item</a>
+
+<table border="1" cellpadding="8">
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for recipe in recipes %}
+    <tr>
+        <td>{{ recipe.name }}</td>
+        <td>{{ recipe.description }}</td>
+        <td>
+            <a href="{% url 'crud:recipe_detail' recipe.id %}">View</a>
+            <a href="{% url 'crud:recipe_update' recipe.id %}">Edit</a>
+            <a href="{% url 'crud:recipe_delete' recipe.id %}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

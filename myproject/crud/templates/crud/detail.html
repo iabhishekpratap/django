@@ -1,0 +1,21 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Item Details</title>
+</head>
+<body>
+
+<h2>{{ recipe.name }}</h2>
+
+<p><strong>Description:</strong></p>
+<p>{{ recipe.description }}</p>
+
+<br>
+<a href="{% url 'crud:recipe_update' recipe.id %}">Edit</a>
+<a href="{% url 'crud:recipe_delete' recipe.id %}">Delete</a>
+<a href="{% url 'crud:recipe_list' %}">Back</a>
+
+</body>
+</html>

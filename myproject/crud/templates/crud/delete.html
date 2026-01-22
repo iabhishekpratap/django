@@ -1,0 +1,19 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Recipe</title>
+</head>
+<body>
+
+<h2>Are you sure you want to delete "{{ recipe.name }}"?</h2>
+<form action="" method="POST">
+    
+    {% csrf_token %}
+    <button type="submit">Yes, Delete</button>
+</form>
+
+<a href="{% url 'crud:recipe_list' %}">Cancel</a>
+</body>
+</html>

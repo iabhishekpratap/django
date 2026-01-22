@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Recipe</title>
+</head>
+<body>
+
+<h2>Add New Recipe</h2>
+
+<form action="{% url 'crud:recipe_create' %}" method="POST">
+
+    {% csrf_token %}
+
+    <label>Name:</label><br>
+    <input type="text" name="name"><br><br>
+    <label>Description:</label><br>
+    <textarea name="description"></textarea><br><br>
+    <button type="submit">Save</button>
+</form>
+
+<a href="{% url 'crud:recipe_list' %}">Back</a>
+
+</body>
+</html>

@@ -21,8 +21,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app1.urls')),  # Include the URLs from app1
-    path('html_temp/', include('html_temp.urls')),  # Include the URLs from html_temp app
     path("webpage/", include("webpage.urls")), # include url from the webpage app
-
+    path("https_response/", include("https_response.urls")), # include url from the https_response app
+    path("crud/", include("crud.urls")), # include url from the crud app
 ]
-

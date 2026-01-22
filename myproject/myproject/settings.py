@@ -38,9 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app1',  # app1 for the learn views and urls
-    'html_temp', # html_temp for template examples
-    "webpage",
+    "webpage", 
+    "https_response", # app for return https response directly
     "models",
+    "crud",
 ]
 
 MIDDLEWARE = [
